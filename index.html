@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>O Tesouro do Pequeno Cavaleiro Yuri · Chá de Fralda</title>
+  <meta name="description" content="Lista de presentes (o tesouro!) do chá de fralda do Yuri. Escolha um item e ajude a montar o baú do nosso pequeno dragãozinho." />
+
+  <!-- Fontes medievais / fofas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- SheetJS (leitura da planilha do Google Drive) -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Fundo decorativo com faíscas -->
+  <div class="sparkles" aria-hidden="true"></div>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero">
+    <div class="hero__stars" aria-hidden="true">
+      <span class="star s1">✦</span>
+      <span class="star s2">✧</span>
+      <span class="star s3">✦</span>
+      <span class="star s4">✧</span>
+    </div>
+
+    <div class="hero__inner">
+      <img class="hero__dragon" src="img/dragao.jpeg" alt="Dragãozinho azul segurando um escudo com uma coroa" />
+
+      <p class="hero__eyebrow">⚔ Reino da Família · Pergaminho Real ⚔</p>
+      <h1 class="hero__title">O Tesouro do<br />Pequeno Cavaleiro <span>Yuri</span></h1>
+      <p class="hero__subtitle">Chá de Fralda &middot; Uma aventura está a caminho</p>
+
+      <a class="hero__cta" href="#tesouro">Explorar o Tesouro ▾</a>
+    </div>
+
+    <div class="hero__wave" aria-hidden="true"></div>
+  </header>
+
+  <!-- ===================== MENSAGEM DE AGRADECIMENTO ===================== -->
+  <section class="scroll-msg" aria-label="Mensagem de agradecimento">
+    <div class="scroll-msg__paper">
+      <img class="scroll-msg__crest" src="img/escudo.jpeg" alt="Brasão com dragão e coroa" />
+      <h2>Nobre Convidado(a)...</h2>
+      <p>
+        Em breve um novo <strong>cavaleiro</strong> chegará ao nosso reino, e o coração
+        de toda a corte já transborda de alegria. 🐉
+      </p>
+      <p>
+        Reunimos aqui, neste antigo <strong>pergaminho</strong>, os tesouros que ajudarão
+        o pequeno <strong>Yuri</strong> em suas primeiras aventuras. Cada presente é um
+        elo de amor que ficará guardado para sempre em nossa memória.
+      </p>
+      <p>
+        Escolha um item do baú abaixo, some sua magia à nossa jornada e receba nossa mais
+        sincera <strong>gratidão</strong>. Que os deuses do reino lhe abençoem por tamanha bondade!
+      </p>
+      <p class="scroll-msg__sign">— Com amor, a família do pequeno Yuri ✦</p>
+    </div>
+  </section>
+
+  <!-- ===================== LISTA / TESOURO ===================== -->
+  <main id="tesouro" class="treasure">
+    <div class="treasure__head">
+      <h2>🗝 O Baú de Tesouros</h2>
+      <p>Itens ainda disponíveis para presentear o pequeno cavaleiro</p>
+    </div>
+
+    <!-- Controles de busca -->
+    <div class="controls">
+      <div class="search">
+        <span class="search__icon" aria-hidden="true">🔍</span>
+        <input id="searchInput" type="search" placeholder="Buscar um tesouro pelo nome..." aria-label="Buscar item" />
+      </div>
+      <div id="categoryChips" class="chips" role="group" aria-label="Filtrar por categoria"></div>
+      <p id="counter" class="counter"></p>
+    </div>
+
+    <!-- Estados -->
+    <div id="loading" class="state">
+      <div class="loader"></div>
+      <p>Desenrolando o pergaminho encantado...</p>
+    </div>
+
+    <div id="error" class="state state--error" hidden>
+      <p>🐲 Ops! O dragão guardião não deixou o pergaminho ser lido.</p>
+      <small></small>
+      <p class="state__hint">Verifique se a planilha está compartilhada como <strong>"Qualquer pessoa com o link"</strong> e desative bloqueadores de anúncios/rastreadores nesta página, se houver.</p>
+      <button id="retryBtn" type="button">Tentar novamente</button>
+    </div>
+
+    <div id="empty" class="state" hidden>
+      <p>✨ Nenhum tesouro encontrado com essa busca.</p>
+    </div>
+
+    <!-- Grade de itens -->
+    <div id="grid" class="grid" aria-live="polite"></div>
+  </main>
+
+  <!-- ===================== RODAPÉ ===================== -->
+  <footer class="footer">
+    <img class="footer__heart" src="img/coracao.jpeg" alt="Escudo com um coração" />
+    <p>Feito com muito amor para o nosso pequeno dragãozinho 🐉💙</p>
+    <small>Chá de Fralda do Yuri · Reino da Família</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

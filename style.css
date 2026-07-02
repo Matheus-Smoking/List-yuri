@@ -1,0 +1,343 @@
+/* ============================================================
+   TEMA — Tesouro do Cavaleiro Yuri (dragão / medieval)
+   Cores tiradas das ilustrações: azul, branco, dourado
+   ============================================================ */
+:root{
+  --blue-deep:  #40608c;
+  --blue:       #6E8CB4;
+  --blue-mid:   #8AA6C8;
+  --blue-light: #A9C3E0;
+  --blue-soft:  #E6EEF7;
+  --blue-mist:  #F3F7FB;
+  --cream:      #F8F4E9;
+  --parch:      #FBF6EA;
+  --parch-edge: #E9DcC1;
+  --gold:       #C6A04E;
+  --gold-light: #E2C880;
+  --ink:        #3B4B60;
+  --ink-soft:   #5f7085;
+  --white:      #ffffff;
+
+  --shadow-sm: 0 4px 14px rgba(64,96,140,.12);
+  --shadow-md: 0 10px 30px rgba(64,96,140,.18);
+  --radius: 20px;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+
+html{ scroll-behavior:smooth; }
+
+body{
+  font-family:'Quicksand', system-ui, sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(1200px 600px at 50% -200px, var(--blue-soft), transparent 70%),
+    linear-gradient(180deg, var(--blue-mist) 0%, var(--white) 40%, var(--blue-mist) 100%);
+  overflow-x:hidden;
+  line-height:1.55;
+}
+
+img{ max-width:100%; display:block; }
+
+/* Faíscas de fundo suaves */
+.sparkles{
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    radial-gradient(2px 2px at 20% 30%, rgba(198,160,78,.5), transparent),
+    radial-gradient(2px 2px at 70% 60%, rgba(169,195,224,.6), transparent),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(198,160,78,.4), transparent),
+    radial-gradient(2px 2px at 85% 20%, rgba(169,195,224,.5), transparent),
+    radial-gradient(1.5px 1.5px at 10% 70%, rgba(198,160,78,.35), transparent);
+  animation:twinkle 6s ease-in-out infinite alternate;
+}
+@keyframes twinkle{ from{opacity:.4;} to{opacity:.9;} }
+
+/* ============================= HERO ============================= */
+.hero{
+  position:relative; z-index:1;
+  text-align:center;
+  padding:48px 20px 90px;
+  background:
+    radial-gradient(900px 500px at 50% 0%, var(--blue-light), var(--blue-soft) 55%, transparent 80%);
+  overflow:hidden;
+}
+.hero__inner{ position:relative; z-index:2; max-width:720px; margin:0 auto; }
+
+.hero__dragon{
+  width:min(300px, 72vw);
+  margin:0 auto 6px;
+  filter:drop-shadow(0 14px 22px rgba(64,96,140,.28));
+  mix-blend-mode:multiply;           /* some sumir com o fundo branco da imagem */
+  animation:float 5s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{ transform:translateY(0) rotate(-1deg); }
+  50%{ transform:translateY(-16px) rotate(1deg); }
+}
+
+.hero__eyebrow{
+  font-family:'Cinzel', serif;
+  letter-spacing:2px;
+  font-size:.78rem;
+  color:var(--blue-deep);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.hero__title{
+  font-family:'Cinzel', serif;
+  font-weight:700;
+  font-size:clamp(1.9rem, 7vw, 3.4rem);
+  line-height:1.12;
+  color:var(--blue-deep);
+  text-shadow:0 2px 0 rgba(255,255,255,.6);
+}
+.hero__title span{
+  color:var(--gold);
+  text-shadow:0 2px 6px rgba(198,160,78,.35);
+}
+.hero__subtitle{
+  margin-top:12px;
+  font-size:clamp(1rem, 3.6vw, 1.25rem);
+  color:var(--ink-soft);
+  font-weight:600;
+}
+
+.hero__cta{
+  display:inline-block;
+  margin-top:26px;
+  padding:13px 30px;
+  border-radius:999px;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold));
+  color:#4a3a10;
+  font-weight:700;
+  text-decoration:none;
+  box-shadow:var(--shadow-md);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.hero__cta:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 16px 34px rgba(198,160,78,.4); }
+
+/* estrelinhas flutuantes */
+.hero__stars{ position:absolute; inset:0; z-index:1; pointer-events:none; }
+.star{ position:absolute; color:var(--gold); font-size:1.4rem; opacity:.8; animation:floatStar 7s ease-in-out infinite; }
+.star.s1{ top:12%; left:12%; animation-delay:0s; }
+.star.s2{ top:22%; right:14%; font-size:1.9rem; animation-delay:1.2s; }
+.star.s3{ top:60%; left:8%; font-size:1.1rem; animation-delay:2.1s; color:var(--blue-mid); }
+.star.s4{ top:52%; right:9%; animation-delay:.6s; color:var(--blue-mid); }
+@keyframes floatStar{ 0%,100%{ transform:translateY(0) scale(1); opacity:.5; } 50%{ transform:translateY(-14px) scale(1.2); opacity:1; } }
+
+/* onda de transição */
+.hero__wave{
+  position:absolute; left:0; right:0; bottom:-1px; height:60px;
+  background:var(--white);
+  clip-path:polygon(0 60%, 5% 55%, 12% 62%, 20% 50%, 28% 60%, 36% 48%, 46% 60%, 55% 50%, 64% 62%, 73% 50%, 82% 60%, 90% 52%, 96% 60%, 100% 54%, 100% 100%, 0 100%);
+}
+
+/* ==================== PERGAMINHO / MENSAGEM ==================== */
+.scroll-msg{ position:relative; z-index:1; padding:20px 18px 40px; background:var(--white); }
+.scroll-msg__paper{
+  max-width:640px; margin:0 auto;
+  background:linear-gradient(180deg, var(--parch), var(--cream));
+  border:2px solid var(--parch-edge);
+  border-radius:var(--radius);
+  padding:38px 30px 32px;
+  text-align:center;
+  position:relative;
+  box-shadow:var(--shadow-md);
+}
+.scroll-msg__paper::before,
+.scroll-msg__paper::after{
+  content:""; position:absolute; left:6%; right:6%; height:10px;
+  background:linear-gradient(90deg, transparent, var(--parch-edge), transparent);
+  border-radius:50%;
+}
+.scroll-msg__paper::before{ top:-6px; }
+.scroll-msg__paper::after{ bottom:-6px; }
+.scroll-msg__crest{
+  width:120px; margin:-70px auto 4px;
+  mix-blend-mode:multiply;
+  filter:drop-shadow(0 8px 14px rgba(64,96,140,.25));
+  animation:float 6s ease-in-out infinite;
+}
+.scroll-msg h2{
+  font-family:'Cinzel', serif; color:var(--blue-deep);
+  font-size:clamp(1.3rem, 5vw, 1.8rem); margin-bottom:14px;
+}
+.scroll-msg p{ color:var(--ink-soft); margin-bottom:12px; font-size:1.02rem; }
+.scroll-msg strong{ color:var(--blue-deep); }
+.scroll-msg__sign{
+  margin-top:18px; font-family:'Cinzel', serif;
+  color:var(--gold); font-weight:600;
+}
+
+/* ========================= TESOURO ========================= */
+.treasure{ position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:44px 18px 60px; }
+.treasure__head{ text-align:center; margin-bottom:26px; }
+.treasure__head h2{
+  font-family:'Cinzel', serif; color:var(--blue-deep);
+  font-size:clamp(1.5rem, 6vw, 2.2rem);
+}
+.treasure__head p{ color:var(--ink-soft); margin-top:6px; }
+
+/* Controles */
+.controls{
+  position:sticky; top:0; z-index:5;
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(8px);
+  padding:14px 10px;
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);
+  margin-bottom:28px;
+}
+.search{ position:relative; max-width:520px; margin:0 auto 12px; }
+.search__icon{
+  position:absolute; left:16px; top:50%; transform:translateY(-50%);
+  font-size:1rem; opacity:.6;
+}
+.search input{
+  width:100%; padding:13px 16px 13px 44px;
+  border:2px solid var(--blue-soft);
+  border-radius:999px;
+  font-family:inherit; font-size:1rem; color:var(--ink);
+  background:var(--white);
+  transition:border-color .2s, box-shadow .2s;
+}
+.search input:focus{
+  outline:none; border-color:var(--blue-mid);
+  box-shadow:0 0 0 4px rgba(138,166,200,.25);
+}
+
+.chips{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.chip{
+  border:2px solid var(--blue-soft);
+  background:var(--white);
+  color:var(--ink-soft);
+  font-family:inherit; font-weight:600; font-size:.86rem;
+  padding:8px 15px; border-radius:999px;
+  cursor:pointer; transition:all .18s ease;
+  white-space:nowrap;
+}
+.chip:hover{ border-color:var(--blue-mid); transform:translateY(-2px); }
+.chip.active{
+  background:linear-gradient(135deg, var(--blue), var(--blue-deep));
+  color:#fff; border-color:transparent;
+  box-shadow:var(--shadow-sm);
+}
+.counter{ text-align:center; margin-top:12px; color:var(--ink-soft); font-size:.86rem; font-weight:600; }
+
+/* Estados */
+.state{ text-align:center; padding:50px 20px; color:var(--ink-soft); }
+.state--error p{ color:#a05a5a; font-weight:600; }
+.state small{ display:block; margin:8px 0 16px; opacity:.7; font-size:.8rem; word-break:break-word; }
+.state button{
+  padding:11px 26px; border:none; border-radius:999px;
+  background:linear-gradient(135deg, var(--gold-light), var(--gold));
+  color:#4a3a10; font-family:inherit; font-weight:700; cursor:pointer;
+  box-shadow:var(--shadow-sm);
+}
+.loader{
+  width:52px; height:52px; margin:0 auto 18px;
+  border:5px solid var(--blue-soft);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* Grade de cartas */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(270px, 1fr));
+  gap:20px;
+}
+
+.card{
+  position:relative;
+  background:linear-gradient(180deg, var(--parch), var(--cream));
+  border:2px solid var(--parch-edge);
+  border-radius:18px;
+  padding:20px 20px 18px;
+  box-shadow:var(--shadow-sm);
+  display:flex; flex-direction:column;
+  overflow:hidden;
+  opacity:0; transform:translateY(24px);
+  transition:transform .3s ease, box-shadow .3s ease;
+}
+.card.show{ animation:cardIn .55s cubic-bezier(.2,.7,.3,1) forwards; }
+@keyframes cardIn{ to{ opacity:1; transform:translateY(0); } }
+.card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-md); }
+
+/* faixa dourada no topo */
+.card::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:5px;
+  background:linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold-light));
+}
+
+.card__cat{
+  align-self:flex-start;
+  font-size:.72rem; font-weight:700; letter-spacing:.5px;
+  color:var(--blue-deep);
+  background:var(--blue-soft);
+  padding:5px 11px; border-radius:999px;
+  margin-bottom:12px;
+}
+.card__title{
+  font-family:'Cinzel', serif;
+  font-size:1.12rem; color:var(--ink);
+  line-height:1.25; margin-bottom:10px;
+}
+.card__meta{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
+.card__badge{
+  font-size:.78rem; font-weight:700;
+  padding:4px 10px; border-radius:8px;
+  background:var(--white); border:1px solid var(--parch-edge); color:var(--ink-soft);
+}
+.card__badge--price{ color:#6c8f57; border-color:#d3e2c6; background:#f2f8ec; }
+.card__badge--qtd{ color:var(--blue-deep); border-color:var(--blue-soft); background:var(--blue-mist); }
+.card__obs{
+  font-size:.9rem; color:var(--ink-soft);
+  background:rgba(255,255,255,.55);
+  border-left:3px solid var(--gold-light);
+  padding:8px 10px; border-radius:8px;
+  margin-bottom:14px; white-space:pre-line;
+}
+.card__spacer{ flex:1; }
+.card__link{
+  display:inline-flex; align-items:center; justify-content:center; gap:6px;
+  margin-top:auto;
+  padding:11px 16px; border-radius:12px;
+  background:linear-gradient(135deg, var(--blue), var(--blue-deep));
+  color:#fff; font-weight:700; text-decoration:none; font-size:.92rem;
+  transition:transform .18s, box-shadow .18s, filter .18s;
+}
+.card__link:hover{ transform:translateY(-2px); filter:brightness(1.08); box-shadow:var(--shadow-sm); }
+.card__link--none{
+  background:var(--blue-soft); color:var(--ink-soft);
+  border:1px dashed var(--blue-mid); cursor:default;
+}
+
+/* ========================= RODAPÉ ========================= */
+.footer{
+  position:relative; z-index:1;
+  text-align:center; padding:40px 20px 54px;
+  background:radial-gradient(700px 300px at 50% 120%, var(--blue-light), transparent 70%);
+}
+.footer__heart{
+  width:150px; margin:0 auto 6px;
+  mix-blend-mode:multiply;
+  animation:float 6s ease-in-out infinite;
+}
+.footer p{ font-family:'Cinzel', serif; color:var(--blue-deep); font-weight:600; }
+.footer small{ color:var(--ink-soft); display:block; margin-top:6px; }
+
+/* ========================= RESPONSIVO ========================= */
+@media (max-width:600px){
+  .hero{ padding:34px 16px 74px; }
+  .scroll-msg__paper{ padding:34px 20px 28px; }
+  .grid{ grid-template-columns:1fr; gap:16px; }
+  .controls{ border-radius:16px; }
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation:none !important; transition:none !important; }
+  .card{ opacity:1; transform:none; }
+}
