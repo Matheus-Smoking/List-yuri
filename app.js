@@ -22,9 +22,11 @@ const els = {
   filterToggle: document.getElementById("filterToggle"),
   filterPanel:  document.getElementById("filterPanel"),
   filterLabel:  document.querySelector(".filter-toggle__label"),
+  controls:     document.querySelector(".controls"),
 };
 
 const isMobile = () => window.matchMedia("(max-width: 600px)").matches;
+let filtersStuck = false; // true quando a barra de filtros está "grudada" no topo
 
 /* ---- Estado ---- */
 let ALL_ITEMS = [];       // itens disponíveis (não comprados)
@@ -146,7 +148,8 @@ function buildChips() {
       document.querySelectorAll(".chip").forEach((x) => x.classList.remove("active"));
       b.classList.add("active");
       updateFilterLabel();
-      if (isMobile()) setFilterOpen(false); // fecha o acordeão após escolher
+      // Só fecha ao escolher se a barra estiver grudada no topo (fixa)
+      if (isMobile() && filtersStuck) setFilterOpen(false);
       render();
     });
     els.chips.appendChild(b);
@@ -272,6 +275,23 @@ els.filterToggle?.addEventListener("click", () => {
   const open = els.filterToggle.getAttribute("aria-expanded") !== "true";
   setFilterOpen(open);
 });
+
+/* No mobile: aberto na posição normal, fechado quando a barra "gruda" no topo.
+   Como a barra é position:sticky top:0, ela está "fixa" quando seu topo chega a 0. */
+function updateFiltersStuck() {
+  if (!els.controls) return;
+  const stuck = els.controls.getBoundingClientRect().top <= 0;
+  if (stuck === filtersStuck) return; // nada mudou
+  filtersStuck = stuck;
+  if (isMobile()) setFilterOpen(!stuck); // fixa => fecha; normal => abre
+}
+window.addEventListener("scroll", updateFiltersStuck, { passive: true });
+window.addEventListener("resize", () => {
+  if (isMobile()) setFilterOpen(!filtersStuck);
+});
+// Estado inicial no mobile: aberto (mostra as categorias ao usuário)
+if (isMobile()) setFilterOpen(true);
+updateFiltersStuck();
 
 /* Vai! */
 init();

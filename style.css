@@ -33,7 +33,7 @@ body{
   background:
     radial-gradient(1200px 600px at 50% -200px, var(--blue-soft), transparent 70%),
     linear-gradient(180deg, var(--blue-mist) 0%, var(--white) 40%, var(--blue-mist) 100%);
-  overflow-x:hidden;
+  overflow-x:clip; /* evita rolagem horizontal sem virar container de scroll */
   line-height:1.55;
 }
 
