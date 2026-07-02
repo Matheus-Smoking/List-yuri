@@ -206,6 +206,10 @@ img{ max-width:100%; display:block; }
   box-shadow:0 0 0 4px rgba(138,166,200,.25);
 }
 
+/* Botão acordeão (só aparece no mobile) */
+.filter-toggle{ display:none; }
+.filter-panel{ /* no desktop fica sempre visível */ }
+
 .chips{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
 .chip{
   border:2px solid var(--blue-soft);
@@ -284,6 +288,7 @@ img{ max-width:100%; display:block; }
   font-family:'Cinzel', serif;
   font-size:1.12rem; color:var(--ink);
   line-height:1.25; margin-bottom:10px;
+  overflow-wrap:anywhere; word-break:break-word;
 }
 .card__meta{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; }
 .card__badge{
@@ -299,7 +304,10 @@ img{ max-width:100%; display:block; }
   border-left:3px solid var(--gold-light);
   padding:8px 10px; border-radius:8px;
   margin-bottom:14px; white-space:pre-line;
+  overflow-wrap:anywhere; word-break:break-word;
 }
+/* Links longos dentro dos cartões também quebram */
+.card__link{ overflow-wrap:anywhere; word-break:break-word; }
 .card__spacer{ flex:1; }
 .card__link{
   display:inline-flex; align-items:center; justify-content:center; gap:6px;
@@ -334,7 +342,32 @@ img{ max-width:100%; display:block; }
   .hero{ padding:34px 16px 74px; }
   .scroll-msg__paper{ padding:34px 20px 28px; }
   .grid{ grid-template-columns:1fr; gap:16px; }
-  .controls{ border-radius:16px; }
+  .controls{ border-radius:16px; padding:12px 10px; }
+  .search{ margin-bottom:10px; }
+
+  /* ---- Acordeão de filtros (mobile) ---- */
+  .filter-toggle{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    width:100%; margin:0 auto;
+    padding:11px 16px; border-radius:999px; cursor:pointer;
+    border:2px solid var(--blue-soft); background:var(--white);
+    font-family:'Cinzel', serif; font-weight:600; font-size:.9rem;
+    color:var(--blue-deep);
+  }
+  .filter-toggle__label{
+    overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  }
+  .filter-toggle__chevron{ transition:transform .3s ease; flex:0 0 auto; }
+  .filter-toggle[aria-expanded="true"] .filter-toggle__chevron{ transform:rotate(180deg); }
+
+  /* Fechado por padrão */
+  .filter-panel{
+    max-height:0; overflow:hidden;
+    transition:max-height .35s ease, margin-top .35s ease;
+    margin-top:0;
+  }
+  .filter-panel.open{ max-height:70vh; overflow-y:auto; margin-top:12px; }
+  .chips{ padding-bottom:2px; }
 }
 
 @media (prefers-reduced-motion:reduce){

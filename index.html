@@ -78,7 +78,13 @@
         <span class="search__icon" aria-hidden="true">🔍</span>
         <input id="searchInput" type="search" placeholder="Buscar um tesouro pelo nome..." aria-label="Buscar item" />
       </div>
-      <div id="categoryChips" class="chips" role="group" aria-label="Filtrar por categoria"></div>
+      <button id="filterToggle" class="filter-toggle" type="button" aria-expanded="false" aria-controls="filterPanel">
+        <span class="filter-toggle__label">⚔️ Filtrar por categoria</span>
+        <span class="filter-toggle__chevron" aria-hidden="true">▾</span>
+      </button>
+      <div id="filterPanel" class="filter-panel">
+        <div id="categoryChips" class="chips" role="group" aria-label="Filtrar por categoria"></div>
+      </div>
       <p id="counter" class="counter"></p>
     </div>
 

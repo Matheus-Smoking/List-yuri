@@ -19,7 +19,12 @@ const els = {
   chips:    document.getElementById("categoryChips"),
   counter:  document.getElementById("counter"),
   retry:    document.getElementById("retryBtn"),
+  filterToggle: document.getElementById("filterToggle"),
+  filterPanel:  document.getElementById("filterPanel"),
+  filterLabel:  document.querySelector(".filter-toggle__label"),
 };
+
+const isMobile = () => window.matchMedia("(max-width: 600px)").matches;
 
 /* ---- Estado ---- */
 let ALL_ITEMS = [];       // itens disponíveis (não comprados)
@@ -140,10 +145,25 @@ function buildChips() {
       activeCategory = c;
       document.querySelectorAll(".chip").forEach((x) => x.classList.remove("active"));
       b.classList.add("active");
+      updateFilterLabel();
+      if (isMobile()) setFilterOpen(false); // fecha o acordeão após escolher
       render();
     });
     els.chips.appendChild(b);
   });
+  updateFilterLabel();
+}
+
+function updateFilterLabel() {
+  if (!els.filterLabel) return;
+  els.filterLabel.textContent =
+    activeCategory === "Todos" ? "⚔️ Filtrar por categoria" : "⚔️ " + activeCategory;
+}
+
+function setFilterOpen(open) {
+  if (!els.filterPanel || !els.filterToggle) return;
+  els.filterPanel.classList.toggle("open", open);
+  els.filterToggle.setAttribute("aria-expanded", open ? "true" : "false");
 }
 
 function getFiltered() {
@@ -187,7 +207,7 @@ function render() {
   els.grid.innerHTML = "";
 
   els.empty.hidden = items.length !== 0;
-  els.counter.textContent = `${ALL_ITEMS.length} tesouro(s) aguardando um herói · mostrando ${items.length}`;
+  els.counter.textContent = `🏆 Mostrando ${items.length} de ${ALL_ITEMS.length} tesouros`;
 
   items.forEach((it, idx) => {
     const card = document.createElement("article");
@@ -246,6 +266,12 @@ els.search.addEventListener("input", (e) => {
   render();
 });
 els.retry.addEventListener("click", init);
+
+/* Acordeão de filtros (mobile) */
+els.filterToggle?.addEventListener("click", () => {
+  const open = els.filterToggle.getAttribute("aria-expanded") !== "true";
+  setFilterOpen(open);
+});
 
 /* Vai! */
 init();
